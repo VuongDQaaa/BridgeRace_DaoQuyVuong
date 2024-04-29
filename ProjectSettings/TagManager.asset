@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Start
+  - State2
+  - Stage3
+  - Ground
+  - Step
   layers:
   - Default
   - TransparentFX
