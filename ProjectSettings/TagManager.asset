@@ -9,6 +9,8 @@ TagManager:
   - Stage3
   - Ground
   - Step
+  - Stair
+  - Brick
   layers:
   - Default
   - TransparentFX

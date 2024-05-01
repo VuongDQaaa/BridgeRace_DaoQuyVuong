@@ -6,6 +6,7 @@ public class PlayerController : Character
     [Header("Required components")]
     [SerializeField] private JoyStickController joyStickController;
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform checkMovable;
 
     [Header("Attributes")]
     [SerializeField] private float speed;
@@ -24,43 +25,44 @@ public class PlayerController : Character
     // Update is called once per frame
     void Update()
     {
+        movingDir.x = joyStickController.horizontalInput;
+        movingDir.z = joyStickController.verticalInput;
         HandleInput();
+        InteractWithStep();
     }
     void FixedUpdate()
     {
-        MoveCharacter();
-        ClimpStair();
+        MoveCharacter(movingDir);
     }
-    private void MoveCharacter()
+    private void MoveCharacter(Vector3 direction)
     {
-        movingDir.x = joyStickController.horizontalInput;
-        movingDir.z = joyStickController.verticalInput;
+        Ray ray = new Ray(checkMovable.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            //moving vector
+            Vector3 moveAmount = direction.normalized * speed * Time.deltaTime;
 
-        rb.velocity = movingDir.normalized * speed;
+            if (hit.collider.CompareTag("Stair"))
+            {
+                rb.isKinematic = true;
+                //go up stair
+                if (joyStickController.verticalInput > 0 && isValidStep == true)
+                {
+                    moveAmount.y = moveAmount.y + 1;
+                }
+            }
+            if (hit.collider.CompareTag("Ground"))
+            {
+                rb.isKinematic = false;
+            }
 
+            rb.MovePosition(rb.position + moveAmount);
+        }
         //rotate player
         if (joyStickController.horizontalInput != 0 && joyStickController.verticalInput != 0)
         {
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
-        }
-    }
-    private void ClimpStair()
-    {
-        Debug.DrawRay(transform.position, Vector3.down, Color.red);
-        Ray ray = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1.1f))
-        {
-            if (hit.collider.CompareTag("Step"))
-            {
-                //Go up
-                if (joyStickController.verticalInput > 0)
-                {
-                    //Debug.Log("hit point y:" + hit.point.y);
-                    Vector3 climpPostion = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-                    transform.position = Vector3.Lerp(transform.position, climpPostion, speed);
-                }
-            }
+            transform.rotation = Quaternion.LookRotation(direction.normalized);
         }
     }
 
@@ -89,4 +91,5 @@ public class PlayerController : Character
             anim.SetTrigger(currentAnimName);
         }
     }
+
 }
