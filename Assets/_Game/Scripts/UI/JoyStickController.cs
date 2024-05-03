@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class JoyStickController : MonoBehaviour
 {
-    public float horizontalInput, verticalInput;
+    public static Vector3 direction;
+    public static float verticalInput;
     [SerializeField] private GameObject joystick;
     [SerializeField] private RectTransform bg, knob;
     [SerializeField] private float knobRange;
-    private Vector2 startPos, currentPos;
-    private Vector2 screen;
-    private Vector2 touchPos;
+    private Vector3 startPos, currentPos;
+    private Vector3 screen;
+    private Vector3 mousePos => Input.mousePosition - screen / 2;
 
     private void Awake()
     {
         screen.x = Screen.width;
         screen.y = Screen.height;
+        verticalInput = 0;
     }
     private void OnEnable()
     {
-        horizontalInput = 0f;
-        verticalInput = 0f;
+        direction = Vector3.zero;
+        verticalInput = 0;
     }
 
     // Update is called once per frame
@@ -29,41 +31,31 @@ public class JoyStickController : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.touchCount > 0)
+        if (Input.GetMouseButtonDown(0))
         {
-            Touch touch = Input.GetTouch(0);
-            touchPos = touch.position - screen / 2;
-            //first touch
-            if (touch.phase == TouchPhase.Began)
-            {
-                startPos = touchPos;
-                joystick.SetActive(true);
-                bg.anchoredPosition = startPos;
-            }
+            startPos = mousePos;
+            joystick.SetActive(true);
+            bg.anchoredPosition = startPos;
+        }
+        if (Input.GetMouseButton(0))
+        {
+            currentPos = mousePos;
+            //calculate postion of knob
+            knob.anchoredPosition = Vector3.ClampMagnitude((currentPos - startPos), knobRange) + startPos;
 
-            //on move
-            if (touch.phase == TouchPhase.Moved)
-            {
-                currentPos = touchPos;
-                //calculate postion of knob
-                knob.anchoredPosition = Vector2.ClampMagnitude((currentPos - startPos), knobRange) + startPos;
+            //Calculate vector direction
+            direction = (currentPos - startPos).normalized;
+            direction.z = direction.y;
+            direction.y = 0;
 
-                Vector3 direction = (currentPos - startPos).normalized;
-                direction.z = direction.y;
-                direction.y = 0;
-
-                //update input
-                horizontalInput = direction.x;
-                verticalInput = direction.z;
-            }
-
-            //stop
-            if (touch.phase == TouchPhase.Ended)
-            {
-                joystick.SetActive(false);
-                horizontalInput = 0f;
-                verticalInput = 0f;
-            }
+            //vertical Input
+            verticalInput = direction.z;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            joystick.SetActive(false);
+            direction = Vector3.zero;
+            verticalInput = 0;
         }
     }
 }

@@ -3,22 +3,73 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public enum AnimationState { idle, runing, win }
     [SerializeField] private ColorData colorData;
     [SerializeField] private Renderer meshRenderer;
     [SerializeField] private GameObject charBrickPrefab;
     [SerializeField] private Transform root;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask stepLayer;
     protected List<GameObject> myBrick = new List<GameObject>();
-    protected bool isValidStep = true;
     public ColorType myColor;
+    protected bool isMoveable, isOnstair;
 
     private void Awake()
+    {
+        isMoveable = true;
+        isOnstair = false;
+    }
+
+    public void UpdateCharacterColor(ColorType newColor)
     {
         meshRenderer.material = colorData.GetMat(myColor);
     }
 
-    private void Update()
+    public Vector3 CheckGrounded(Vector3 nextPos)
     {
-        InteractWithStep();
+        RaycastHit hit;
+        if (Physics.Raycast(nextPos, Vector3.down, out hit, 1.5f, groundLayer))
+        {
+            return hit.point + Vector3.up * 1f;
+        }
+        return transform.position;
+    }
+
+    protected void CheckStepColor()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, stepLayer))
+        {
+            isOnstair = true;
+            Step step = hit.collider.GetComponent<Step>();
+            if (step != null)
+            {
+                if (step.stepColor != myColor)
+                {
+                    if (myBrick.Count > 0)
+                    {
+                        isMoveable = true;
+                        RemoveCharacterBrick(step);
+                    }
+                    else
+                    {
+                        isMoveable = false;
+                    }
+                }
+                else
+                {
+                    isMoveable = true;
+                }
+            }
+            else
+            {
+                Debug.Log("step not found");
+            }
+        }
+        else
+        {
+            isOnstair = false;
+        }
     }
 
     private void AddCharacterBrick()
@@ -39,35 +90,6 @@ public class Character : MonoBehaviour
         Vector3 brickPos = root.transform.position;
         brickPos.y = brickPos.y + myBrick.Count * 0.2f;
         newCharacterBrick.transform.position = brickPos;
-    }
-
-    protected void InteractWithStep()
-    {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider.CompareTag("Step"))
-            {
-                Step step = hit.transform.GetComponent<Step>();
-                if (step.stepColor != myColor)
-                {
-                    if(myBrick.Count > 0)
-                    {
-                        isValidStep = true;
-                        RemoveCharacterBrick(step);
-                    }
-                    else
-                    {
-                        isValidStep = false;
-                    }
-                }
-                else
-                {
-                    isValidStep = true;
-                }
-            }
-        }
     }
 
     private void RemoveCharacterBrick(Step step)

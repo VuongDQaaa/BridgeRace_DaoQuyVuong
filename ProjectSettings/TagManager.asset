@@ -8,17 +8,15 @@ TagManager:
   - State2
   - Stage3
   - Ground
-  - Step
-  - Stair
   - Brick
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Step
   - 
   - 
   - 

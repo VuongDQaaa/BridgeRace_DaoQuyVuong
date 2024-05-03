@@ -1,33 +1,25 @@
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
-    [SerializeField] private Transform target;
-    //[SerializeField] private float smoothSpeed = 0.125f;
+    [SerializeField] private Transform currentTarget;
+    [SerializeField] private float smoothSpeed = 0.125f;
     [SerializeField] private Vector3 offset;
-
-    void Start()
-    {
-        GameObject otherObject = GameObject.Find("Player");
-        if (otherObject != null)
-        {
-            target = otherObject.transform;
-        }
-        else
-        {
-            Debug.Log("Not find player");
-        }
-    }
 
     void LateUpdate()
     {
-        if (target != null)
+        if (currentTarget != null)
         {
-            Vector3 desiredPosition = target.position + offset;
-            //Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = desiredPosition;
+            Vector3 desiredPosition = currentTarget.position + offset;
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothedPosition;
 
-            transform.LookAt(target.position);
+            transform.LookAt(currentTarget.position);
         }
+    }
+
+    public void SetTarGet(GameObject target)
+    {
+        currentTarget = target.transform;
     }
 }
