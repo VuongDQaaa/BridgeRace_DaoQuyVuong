@@ -4,6 +4,7 @@ using UnityEngine;
 public class CanvasMainMenu : UICanvas
 {
     [SerializeField] private TMP_Dropdown colorDropDown;
+    [SerializeField] private GameObject playButton;
 
     public void PlayButton()
     {
@@ -26,6 +27,7 @@ public class CanvasMainMenu : UICanvas
     public void SelectPlayerColorDropdown()
     {
         GameManager.Instance.playerColor = SelectedColor(colorDropDown.value);
+        playButton.SetActive(true);
     }
 
     private ColorType SelectedColor(int dropDownValue)

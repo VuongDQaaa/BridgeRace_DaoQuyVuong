@@ -22,29 +22,26 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentGameState == GameState.playing)
         {
-            SpawnMap();
-            SpawnPlayer(mapPrefabs);
-            SpawnBot();
+            SpawnGameObjects();
         }
     }
 
-    private void SpawnMap()
+    private void SpawnGameObjects()
     {
-        Instantiate(mapPrefabs);
-    }
+        //Spawn map
+        GameObject currentMap = Instantiate(mapPrefabs);
+        //Spawn player
+        GameObject spawnPos = currentMap.transform.Find("Start Position").gameObject;
 
-    private void SpawnPlayer(GameObject currentMap)
-    {
-        Vector3 spawnPos = new Vector3(0, 0.5f, 0);
         if (spawnPos != null)
         {
-            GameObject spawnedPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+            GameObject spawnedPlayer = Instantiate(playerPrefab, spawnPos.transform.position, Quaternion.identity);
             ChangePlayerColor(playerColor, spawnedPlayer);
             CameraController.Instance.SetTarGet(spawnedPlayer);
         }
         else
         {
-            Debug.Log("map not found");
+            Debug.Log("spawn pos not found");
         }
 
     }
