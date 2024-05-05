@@ -28,9 +28,9 @@ public class Character : MonoBehaviour
     public Vector3 CheckGrounded(Vector3 nextPos)
     {
         RaycastHit hit;
-        if (Physics.Raycast(nextPos, Vector3.down, out hit, 1.5f, groundLayer))
+        if (Physics.Raycast(nextPos, Vector3.down, out hit, 2f, groundLayer))
         {
-            return hit.point + Vector3.up * 1f;
+            return hit.point + Vector3.up * 1.2f;
         }
         return transform.position;
     }
@@ -103,7 +103,11 @@ public class Character : MonoBehaviour
 
     private void ClearCharacterBrick()
     {
-
+        foreach (GameObject currentCharacterBrick in root.transform)
+        {
+            Destroy(currentCharacterBrick);
+        }
+        myBrick.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -117,7 +121,7 @@ public class Character : MonoBehaviour
                 AddCharacterBrick();
             }
         }
-        if (other.CompareTag("Finish"))
+        if(other.CompareTag("Finish"))
         {
             ClearCharacterBrick();
         }

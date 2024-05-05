@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -6,6 +8,8 @@ public class GameManager : Singleton<GameManager>
     [Header("Required elements")]
     [SerializeField] private GameObject mapPrefabs;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private List<GameObject> botprefabs;
+    public List<Transform> startPositons;
 
     [Header("Atributes")]
     public GameState currentGameState;
@@ -22,28 +26,16 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentGameState == GameState.playing)
         {
-            SpawnGameObjects();
+            SpawnGameElements();
         }
     }
 
-    private void SpawnGameObjects()
+    private void SpawnGameElements()
     {
         //Spawn map
         GameObject currentMap = Instantiate(mapPrefabs);
-        //Spawn player
-        GameObject spawnPos = currentMap.transform.Find("Start Position").gameObject;
-
-        if (spawnPos != null)
-        {
-            GameObject spawnedPlayer = Instantiate(playerPrefab, spawnPos.transform.position, Quaternion.identity);
-            ChangePlayerColor(playerColor, spawnedPlayer);
-            CameraController.Instance.SetTarGet(spawnedPlayer);
-        }
-        else
-        {
-            Debug.Log("spawn pos not found");
-        }
-
+        //Spawn character
+        StartCoroutine(SpawnCharacter(currentMap));
     }
 
     public void ChangePlayerColor(ColorType selectedColor, GameObject player)
@@ -60,7 +52,44 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SpawnBot()
-    { }
+    private void MixListOrder(List<Transform> mixedList)
+    {
+        for (int i = 0; i < mixedList.Count - 1; i++)
+        {
+            int randomIdex = Random.Range(0, mixedList.Count - 1);
+            // swap element
+            Transform temp = mixedList[i];
+            mixedList[i] = mixedList[randomIdex];
+            mixedList[randomIdex] = temp;
+        }
+    }
 
+    IEnumerator SpawnCharacter(GameObject currentMap)
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject startPosParent = currentMap.transform.Find("StartPos").gameObject;
+        //get all spawn pos in map
+        if (startPosParent != null)
+        {
+            foreach (Transform startPos in startPosParent.transform)
+            {
+                startPositons.Add(startPos);
+            }
+        }
+        //mix the start postion oder in list
+        MixListOrder(startPositons);
+
+        //Spawn bot
+        for (int i = 0; i < startPositons.Count - 1; i++)
+        {
+            Vector3 postion = startPositons[i].position;
+            postion.y = 1;
+            Instantiate(botprefabs[i], postion, Quaternion.identity);
+        }
+
+        //Spawn player
+        GameObject spawnedPlayer = Instantiate(playerPrefab, startPositons[startPositons.Count - 1].position, Quaternion.identity);
+        ChangePlayerColor(playerColor, spawnedPlayer);
+        CameraController.Instance.SetTarGet(spawnedPlayer);
+    }
 }

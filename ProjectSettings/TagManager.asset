@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Start
-  - State2
-  - Stage3
   - Ground
   - Brick
+  - Stage3
+  - Start
+  - State2
+  - Bot
   layers:
   - Default
   - TransparentFX
