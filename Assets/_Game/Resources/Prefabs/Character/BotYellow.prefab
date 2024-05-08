@@ -93,8 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 381186190752431274}
   - component: {fileID: 6067896048672681571}
-  - component: {fileID: 7876904646265482976}
   - component: {fileID: 3961058437907435651}
+  - component: {fileID: -4546619743378774670}
   m_Layer: 0
   m_Name: BotYellow
   m_TagString: Bot
@@ -142,29 +142,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7876904646265482976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610959227461218086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b2ff4dff1fcc6245b60288eeb4c4d74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorData: {fileID: 11400000, guid: 7ac84859704b3574ea47be5184094f45, type: 2}
-  meshRenderer: {fileID: 1917051445729555947}
-  charBrickPrefab: {fileID: 4261116953709816302, guid: 88d82ed907a42364183f02dd8d29aeb5, type: 3}
-  root: {fileID: 5682042239352104997}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  stepLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  myColor: 3
 --- !u!54 &3961058437907435651
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,6 +169,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4546619743378774670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610959227461218086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2ff4dff1fcc6245b60288eeb4c4d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorData: {fileID: 11400000, guid: 7ac84859704b3574ea47be5184094f45, type: 2}
+  meshRenderer: {fileID: 1917051445729555947}
+  charBrickPrefab: {fileID: 4261116953709816302, guid: 88d82ed907a42364183f02dd8d29aeb5, type: 3}
+  root: {fileID: 5682042239352104997}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  stepLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  myColor: 3
 --- !u!1 &9125854406794033221
 GameObject:
   m_ObjectHideFlags: 0

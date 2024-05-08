@@ -74,9 +74,10 @@ public class Character : MonoBehaviour
 
     private void AddCharacterBrick()
     {
+        //spawn character brick
         GameObject newCharacterBrick = Instantiate(charBrickPrefab, root);
         myBrick.Add(newCharacterBrick);
-        //change brick myColor
+        //change brick color
         MeshRenderer brickMeshRenderer = newCharacterBrick.GetComponent<MeshRenderer>();
         if (brickMeshRenderer != null)
         {
@@ -103,11 +104,14 @@ public class Character : MonoBehaviour
 
     private void ClearCharacterBrick()
     {
-        foreach (GameObject currentCharacterBrick in root.transform)
+        if (myBrick.Count > 0)
         {
-            Destroy(currentCharacterBrick);
+            foreach (GameObject currentCharacterBrick in myBrick)
+            {
+                Destroy(currentCharacterBrick);
+            }
+            myBrick.Clear();
         }
-        myBrick.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -121,7 +125,7 @@ public class Character : MonoBehaviour
                 AddCharacterBrick();
             }
         }
-        if(other.CompareTag("Finish"))
+        if (other.CompareTag("Finish"))
         {
             ClearCharacterBrick();
         }

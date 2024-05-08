@@ -1,29 +1,39 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using OpenCover.Framework.Model;
 
 public class StateController : MonoBehaviour
 {
-    [SerializeField] private Transform parent;
+    [Header("Spawn postion and brick prefab")]
     [SerializeField] private List<BrickSpawner> brickSpawners;
     [SerializeField] private List<GameObject> brickPrefabs;
-    [SerializeField] public List<GameObject> characters;
-    public bool stateEntered;
+
+    [Header("Current character in sate")]
+    [SerializeField] public List<Character> characters;
+
+    [Header("Bricks in this state")]
     public List<GameObject> spawnedBricks = new List<GameObject>();
+
+    [Header("Spawn parent for brick")]
+    [SerializeField] private Transform parent;
+    public bool stateEntered;
 
     // Start is called before the first frame update
     void Start()
     {
         stateEntered = false;
-        StartCoroutine(SpawnBrick());
+        StartCoroutine(SpawnBrickControl());
     }
 
-    //return number of spawned brick same color
+    //return number of spawned brick same color in List<GameObject> spawnedBrick
     private int CountBrickByColor(GameObject brick)
     {
         int brickNum = 0;
-        if (spawnedBricks.Count > 0)
+        if (spawnedBricks.Count <= 0)
+        {
+            brickNum = 0;
+        }
+        else
         {
             for (int i = 0; i <= spawnedBricks.Count - 1; i++)
             {
@@ -39,24 +49,23 @@ public class StateController : MonoBehaviour
     //Find brick prefabs same color with given color
     private GameObject FindBrickPrefabInList(ColorType brickColor)
     {
-        GameObject foundPrefabs = new GameObject();
+        GameObject foundedBrickPrefab = new GameObject();
         for (int i = 0; i <= brickPrefabs.Count; i++)
         {
             if (brickPrefabs[i].GetComponent<Brick>().brickColor == brickColor)
             {
-                foundPrefabs = brickPrefabs[i];
+                foundedBrickPrefab = brickPrefabs[i];
                 break;
             }
         }
-        return foundPrefabs;
+        return foundedBrickPrefab;
     }
 
-    private void SpawnBrick(Vector3 postion, GameObject brickPrefab)
+    private void SpawnBrick(GameObject brickPrefab, Vector3 postion)
     {
         Vector3 spawnPosition = postion;
         spawnPosition.y = 0.2f;
 
-        //Debug.Log("spawn" + validBrick.name);
         GameObject newBrick = Instantiate(brickPrefab, spawnPosition, Quaternion.identity, parent);
         //Update spawn place for new brick
         Brick spawnedBrick = newBrick.GetComponent<Brick>();
@@ -65,33 +74,57 @@ public class StateController : MonoBehaviour
         spawnedBricks.Add(newBrick);
     }
 
-
-    IEnumerator SpawnBrick()
+    private List<BrickSpawner> ValidSpawnPostions()
     {
-        yield return new WaitForSeconds(1);
-        //check character in character list
-        if (characters.Count > 0)
+        List<BrickSpawner> validSpawnPos = new List<BrickSpawner>();
+        foreach (BrickSpawner item in brickSpawners)
         {
-            //spawn brick for each character in list
-            for (int i = 0; i <= characters.Count - 1; i++)
+            if (item.isSpawned == false)
             {
-                //get brick prefab same color with character
-                GameObject validBrick = FindBrickPrefabInList(characters[i].GetComponent<Character>().myColor);
+                validSpawnPos.Add(item);
+            }
+        }
+        return validSpawnPos;
+    }
 
-                //count current spawned brick same color with player
-                int brickNum = CountBrickByColor(validBrick);
-                if (brickNum >= brickSpawners.Count / characters.Count)
+
+    IEnumerator SpawnBrickControl()
+    {
+        if (stateEntered == true)
+        {
+            yield return new WaitForSeconds(1);
+            //check character in character list
+            if (characters.Count > 0)
+            {
+                //spawn brick for each character in list
+                for (int i = 0; i <= characters.Count - 1; i++)
                 {
-                    continue;
-                }
-                else
-                {
-                    //spawn
-                    
+                    //get brick prefab same color with character
+                    GameObject validBrick = FindBrickPrefabInList(characters[i].myColor);
+
+                    //count current spawned brick same color with player
+                    int brickNum = CountBrickByColor(validBrick);
+                    if (brickNum >= brickSpawners.Count / characters.Count)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        while (brickNum < brickSpawners.Count / characters.Count)
+                        {
+                            //get all spawn postion with isSpawned = false
+                            List<BrickSpawner> currentSpawnPos = ValidSpawnPostions();
+                            //select random spawn position in above list
+                            int randomIndex = Random.Range(0, currentSpawnPos.Count - 1);
+                            //spawn brick
+                            SpawnBrick(validBrick, currentSpawnPos[randomIndex].transform.position);
+                            brickNum++;
+                        }
+                    }
                 }
             }
         }
         yield return new WaitForSeconds(1);
-        StartCoroutine(SpawnBrick());
+        StartCoroutine(SpawnBrickControl());
     }
 }

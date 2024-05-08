@@ -6,10 +6,8 @@ TagManager:
   tags:
   - Ground
   - Brick
-  - Stage3
-  - Start
-  - State2
   - Bot
+  - State
   layers:
   - Default
   - TransparentFX

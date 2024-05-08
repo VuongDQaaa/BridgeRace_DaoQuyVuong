@@ -994,7 +994,7 @@ Transform:
   m_GameObject: {fileID: 2157023178247247008}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 3.5, y: 13.13, z: 38}
+  m_LocalPosition: {x: 3.5, y: 13.42, z: 38.11}
   m_LocalScale: {x: 0.3, y: 1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1048,7 +1048,7 @@ Transform:
   m_GameObject: {fileID: 2461234557201844916}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -0.5, y: 4.36, z: 19.44}
+  m_LocalPosition: {x: -0.5, y: 4.54, z: 19.26}
   m_LocalScale: {x: 0.3, y: 1, z: 1.6000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3127,7 +3127,7 @@ Transform:
   m_GameObject: {fileID: 6223881102216176475}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 7.5, y: 4.36, z: 19.44}
+  m_LocalPosition: {x: 7.5, y: 4.54, z: 19.26}
   m_LocalScale: {x: 0.3, y: 1, z: 1.6000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3201,8 +3201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14894d0068548a34a800cce0a3bf121c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2021584411558880992}
   brickSpawners:
+  - {fileID: 1340945045256393577}
   - {fileID: 4991291187977290471}
   - {fileID: 4591711510694951414}
   - {fileID: 4587848505675282715}
@@ -3228,7 +3228,6 @@ MonoBehaviour:
   - {fileID: 3253008002925125139}
   - {fileID: 4231557145988551755}
   - {fileID: 3457523056915891282}
-  - {fileID: 1340945045256393577}
   - {fileID: 8479298630765890578}
   - {fileID: 6459477548957263057}
   - {fileID: 1072317585759653687}
@@ -3240,8 +3239,9 @@ MonoBehaviour:
   - {fileID: 3852709333281831468, guid: 38c3606c25a6d9243969f71ffcf0fd0e, type: 3}
   - {fileID: 6665008444711492913, guid: 30e2964a9b0282b4eb8973a68d8f7573, type: 3}
   characters: []
-  stateEntered: 0
   spawnedBricks: []
+  parent: {fileID: 2021584411558880992}
+  stateEntered: 0
 --- !u!1 &7254566593035626505
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3395,7 @@ Transform:
   m_GameObject: {fileID: 7385965965735874417}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -4.5, y: 13.13, z: 38}
+  m_LocalPosition: {x: -4.5, y: 13.42, z: 38.11}
   m_LocalScale: {x: 0.3, y: 1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3454,6 +3454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8086642239933890752}
   - {fileID: 2875223798659060046}
   - {fileID: 6709080756141255263}
   - {fileID: 6703950838847171250}
@@ -3479,7 +3480,6 @@ Transform:
   - {fileID: 5730682810711461306}
   - {fileID: 6348943946941974498}
   - {fileID: 5573748567598684155}
-  - {fileID: 8086642239933890752}
   - {fileID: 1661543496143593403}
   - {fileID: 4253320781096515448}
   - {fileID: 7801319798161661086}
@@ -4023,8 +4023,8 @@ GameObject:
   - component: {fileID: 7575463841086180784}
   - component: {fileID: 7170623251181337062}
   m_Layer: 0
-  m_Name: CheckPoint
-  m_TagString: Stage3
+  m_Name: StateCheck
+  m_TagString: State
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4078,7 +4078,7 @@ GameObject:
   - component: {fileID: 1410670135096571199}
   m_Layer: 0
   m_Name: StateCheck
-  m_TagString: Start
+  m_TagString: State
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4143,8 +4143,8 @@ GameObject:
   - component: {fileID: 3083898590833199982}
   - component: {fileID: 3643627932243177146}
   m_Layer: 0
-  m_Name: CheckPoint
-  m_TagString: State2
+  m_Name: StateCheck
+  m_TagString: State
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4642,7 +4642,7 @@ Transform:
   m_GameObject: {fileID: 9181995287370502855}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -7.5, y: 4.36, z: 19.44}
+  m_LocalPosition: {x: -7.5, y: 4.54, z: 19.26}
   m_LocalScale: {x: 0.3, y: 1, z: 1.6000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
