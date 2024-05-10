@@ -8,13 +8,13 @@ public class GameManager : Singleton<GameManager>
     [Header("Required elements")]
     [SerializeField] private GameObject mapPrefabs;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private List<GameObject> botprefabs;
+    [SerializeField] private GameObject botPrefab;
     public List<Transform> startPositons;
 
     [Header("Atributes")]
     public GameState currentGameState;
     public ColorType playerColor;
-
+    private ColorType[] color = { ColorType.Red, ColorType.Blue, ColorType.Green, ColorType.Pink, ColorType.Yellow };
     // Start is called before the first frame update
     void Start()
     {
@@ -38,13 +38,13 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(SpawnCharacter(currentMap));
     }
 
-    public void ChangePlayerColor(ColorType selectedColor, GameObject player)
+    public void ChangeCharacterColor(ColorType selectedColor, Character player)
     {
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController != null)
+        Character character = player.GetComponent<Character>();
+        if (character != null)
         {
-            playerController.myColor = selectedColor;
-            playerController.UpdateCharacterColor(selectedColor);
+            character.myColor = selectedColor;
+            character.UpdateCharacterColor(selectedColor);
         }
         else
         {
@@ -79,17 +79,22 @@ public class GameManager : Singleton<GameManager>
         //mix the start postion oder in list
         MixListOrder(startPositons);
 
-        //Spawn bot
-        for (int i = 0; i < startPositons.Count - 1; i++)
+        //Spawn characters
+        for (int i = 0; i <= color.Length - 1; i++)
         {
-            Vector3 postion = startPositons[i].position;
-            postion.y = 1;
-            Instantiate(botprefabs[i], postion, Quaternion.identity);
+            if (color[i] != playerColor)
+            {
+                //Spawn bot
+                GameObject newBot = Instantiate(botPrefab, startPositons[i].position, Quaternion.identity);
+                ChangeCharacterColor(color[i], newBot.GetComponent<Character>());
+            }
+            else
+            {
+                //Spawn player
+                GameObject spawnedPlayer = Instantiate(playerPrefab, startPositons[i].position, Quaternion.identity);
+                ChangeCharacterColor(playerColor, spawnedPlayer.GetComponent<Character>());
+                CameraController.Instance.SetTarGet(spawnedPlayer);
+            }
         }
-
-        //Spawn player
-        GameObject spawnedPlayer = Instantiate(playerPrefab, startPositons[startPositons.Count - 1].position, Quaternion.identity);
-        ChangePlayerColor(playerColor, spawnedPlayer);
-        CameraController.Instance.SetTarGet(spawnedPlayer);
     }
 }

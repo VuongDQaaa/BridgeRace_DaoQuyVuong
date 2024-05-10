@@ -524,7 +524,7 @@ MonoBehaviour:
     m_Bits: 64
   myColor: 0
   anim: {fileID: 6702254131693326328}
-  speed: 5
+  speed: 4
 --- !u!1 &5045329750595832354
 GameObject:
   m_ObjectHideFlags: 0

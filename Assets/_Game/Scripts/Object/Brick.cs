@@ -4,7 +4,7 @@ public class Brick : MonoBehaviour
 {
     [SerializeField] private ColorData colorData;
     [SerializeField] private MeshRenderer meshRenderer;
-    public StateController spawnedState;
+    public StageController spawnedState;
     public ColorType brickColor;
 
     private void Awake()

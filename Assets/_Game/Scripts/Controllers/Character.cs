@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     public Vector3 CheckGrounded(Vector3 nextPos)
     {
         RaycastHit hit;
-        if (Physics.Raycast(nextPos, Vector3.down, out hit, 2f, groundLayer))
+        if (Physics.Raycast(nextPos, Vector3.down, out hit, 3f, groundLayer))
         {
             return hit.point + Vector3.up * 1.2f;
         }

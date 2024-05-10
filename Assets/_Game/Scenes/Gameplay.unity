@@ -273,11 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapPrefabs: {fileID: 1804390910594370615, guid: 325c6d00c4e81a5458489e0c311d40c9, type: 3}
   playerPrefab: {fileID: 5032786593662145851, guid: 5e07c9ad64a08964aa9712527ac9ec66, type: 3}
-  botprefabs:
-  - {fileID: 3610959227461218086, guid: 159c69650cfe86e478090f598cf0b0ee, type: 3}
-  - {fileID: 3610959227461218086, guid: 4a5cf55a40f0551459332a3b1482fdd3, type: 3}
-  - {fileID: 3610959227461218086, guid: 72ddafd1be362ae4b93d62104cf0aae4, type: 3}
-  - {fileID: 3610959227461218086, guid: 879f8274d5c50994f93127a094a29497, type: 3}
+  botPrefab: {fileID: 1351510531125032859, guid: b4fc33f6ec5cfd8459a07efef2c032c4, type: 3}
   startPositons: []
   currentGameState: 0
   playerColor: 0

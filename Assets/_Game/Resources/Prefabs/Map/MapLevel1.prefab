@@ -3164,7 +3164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2021584411558880992}
-  - component: {fileID: 1761777025847810549}
+  - component: {fileID: 3311421990512876090}
   m_Layer: 0
   m_Name: Stage1
   m_TagString: Untagged
@@ -3189,7 +3189,7 @@ Transform:
   - {fileID: 8166459493816410175}
   m_Father: {fileID: 8055347497319615044}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761777025847810549
+--- !u!114 &3311421990512876090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3240,8 +3240,7 @@ MonoBehaviour:
   - {fileID: 6665008444711492913, guid: 30e2964a9b0282b4eb8973a68d8f7573, type: 3}
   characters: []
   spawnedBricks: []
-  parent: {fileID: 2021584411558880992}
-  stateEntered: 0
+  stageEntered: 0
 --- !u!1 &7254566593035626505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,7 +4130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e05b0acc1a0754ca8437134378c411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 1761777025847810549}
+  stageController: {fileID: 3311421990512876090}
 --- !u!1 &8508183184937645634
 GameObject:
   m_ObjectHideFlags: 0
