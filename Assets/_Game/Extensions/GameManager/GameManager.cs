@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,17 +10,36 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject mapPrefabs;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject botPrefab;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     public List<Transform> startPositons;
 
     [Header("Atributes")]
     public GameState currentGameState;
     public ColorType playerColor;
     private ColorType[] color = { ColorType.Red, ColorType.Blue, ColorType.Green, ColorType.Pink, ColorType.Yellow };
+    [SerializeField] private List<GameObject> currentObjects = new List<GameObject>();
+    [SerializeField] private NavMeshSurface currentNavMeshSurface;
     // Start is called before the first frame update
     void Start()
     {
         currentGameState = GameState.start;
         UIManager.Instance.OpenUI<CanvasMainMenu>();
+    }
+
+    public void Win()
+    {
+        if (currentGameState == GameState.win)
+        {
+            UIManager.Instance.OpenUI<CanvasVictory>();
+        }
+    }
+
+    public void Loose()
+    {
+        if (currentGameState == GameState.loose)
+        {
+            UIManager.Instance.OpenUI<CanvasFail>();
+        }
     }
 
     public void StartGame()
@@ -34,6 +54,9 @@ public class GameManager : Singleton<GameManager>
     {
         //Spawn map
         GameObject currentMap = Instantiate(mapPrefabs);
+        currentObjects.Add(currentMap);
+        //Spawn NavMeshSurface
+        currentNavMeshSurface = Instantiate(navMeshSurface);
         //Spawn character
         StartCoroutine(SpawnCharacter(currentMap));
     }
@@ -86,15 +109,35 @@ public class GameManager : Singleton<GameManager>
             {
                 //Spawn bot
                 GameObject newBot = Instantiate(botPrefab, startPositons[i].position, Quaternion.identity);
+                currentObjects.Add(newBot);
                 ChangeCharacterColor(color[i], newBot.GetComponent<Character>());
             }
             else
             {
                 //Spawn player
                 GameObject spawnedPlayer = Instantiate(playerPrefab, startPositons[i].position, Quaternion.identity);
+                currentObjects.Add(spawnedPlayer);
                 ChangeCharacterColor(playerColor, spawnedPlayer.GetComponent<Character>());
                 CameraController.Instance.SetTarGet(spawnedPlayer);
             }
         }
+    }
+
+    public void ClearAllObject()
+    {
+        //Destroy start positions
+        startPositons.Clear();
+        //destroy map, bot, and player
+        if (currentObjects != null)
+        {
+            foreach (GameObject item in currentObjects)
+            {
+                Destroy(item);
+            }
+        }
+        currentObjects.Clear();
+        //destroy current navmeshsurface
+        Destroy(currentNavMeshSurface.gameObject);
+        currentNavMeshSurface = null;
     }
 }

@@ -10,9 +10,11 @@ public class Character : MonoBehaviour
     [SerializeField] private Transform root;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask stepLayer;
-    protected List<GameObject> myBrick = new List<GameObject>();
+    public List<GameObject> myBricks = new List<GameObject>();
     public ColorType myColor;
+    [SerializeField] protected StageController currentStage;
     protected bool isMoveable, isOnstair;
+    public bool isFinished = false;
 
     private void Awake()
     {
@@ -28,7 +30,7 @@ public class Character : MonoBehaviour
     public Vector3 CheckGrounded(Vector3 nextPos)
     {
         RaycastHit hit;
-        if (Physics.Raycast(nextPos, Vector3.down, out hit, 3f, groundLayer))
+        if (Physics.Raycast(nextPos, Vector3.down, out hit, 2f, groundLayer))
         {
             return hit.point + Vector3.up * 1.2f;
         }
@@ -46,7 +48,7 @@ public class Character : MonoBehaviour
             {
                 if (step.stepColor != myColor)
                 {
-                    if (myBrick.Count > 0)
+                    if (myBricks.Count > 0)
                     {
                         isMoveable = true;
                         RemoveCharacterBrick(step);
@@ -76,7 +78,7 @@ public class Character : MonoBehaviour
     {
         //spawn character brick
         GameObject newCharacterBrick = Instantiate(charBrickPrefab, root);
-        myBrick.Add(newCharacterBrick);
+        myBricks.Add(newCharacterBrick);
         //change brick color
         MeshRenderer brickMeshRenderer = newCharacterBrick.GetComponent<MeshRenderer>();
         if (brickMeshRenderer != null)
@@ -89,7 +91,7 @@ public class Character : MonoBehaviour
         }
         //update chacter brick postion;
         Vector3 brickPos = root.transform.position;
-        brickPos.y = brickPos.y + myBrick.Count * 0.2f;
+        brickPos.y = brickPos.y + myBricks.Count * 0.2f;
         newCharacterBrick.transform.position = brickPos;
     }
 
@@ -98,19 +100,19 @@ public class Character : MonoBehaviour
         //change step color
         step.stepColor = myColor;
         //remove 1 brick in list
-        Destroy(myBrick[myBrick.Count - 1]);
-        myBrick.RemoveAt(myBrick.Count - 1);
+        Destroy(myBricks[myBricks.Count - 1]);
+        myBricks.RemoveAt(myBricks.Count - 1);
     }
 
     private void ClearCharacterBrick()
     {
-        if (myBrick.Count > 0)
+        if (myBricks.Count > 0)
         {
-            foreach (GameObject currentCharacterBrick in myBrick)
+            foreach (GameObject currentCharacterBrick in myBricks)
             {
                 Destroy(currentCharacterBrick);
             }
-            myBrick.Clear();
+            myBricks.Clear();
         }
     }
 
@@ -125,9 +127,15 @@ public class Character : MonoBehaviour
                 AddCharacterBrick();
             }
         }
+        if (other.CompareTag("Stage"))
+        {
+            currentStage = other.GetComponent<StageCheck>().stageController;
+        }
+
         if (other.CompareTag("Finish"))
         {
             ClearCharacterBrick();
+            isFinished = true;
         }
     }
 

@@ -7,7 +7,8 @@ TagManager:
   - Ground
   - Brick
   - Bot
-  - State
+  - Stage
+  - Map
   layers:
   - Default
   - TransparentFX

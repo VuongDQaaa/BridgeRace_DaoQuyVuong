@@ -12,7 +12,7 @@ public class StageController : MonoBehaviour
     [SerializeField] public List<Character> characters;
 
     [Header("Bricks in this state")]
-    public List<GameObject> spawnedBricks = new List<GameObject>();
+    public List<GameObject> spawnedBricks;
 
     [Header("Spawn parent for brick")]
     public bool stageEntered = false;
@@ -21,11 +21,6 @@ public class StageController : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnBrick());
-    }
-
-    void Update()
-    {
-
     }
 
     //return number of spawned brick same color in List<GameObject> spawnedBrick
@@ -51,9 +46,11 @@ public class StageController : MonoBehaviour
 
     private void GenarateBrick(GameObject brickPrefab, Vector3 postion)
     {
-        GameObject newBrick = Instantiate(brickPrefab, postion, Quaternion.identity, transform);
+        Vector3 spawnPostion = postion;
+        spawnPostion.y = postion.y + 0.5f;
+        GameObject newBrick = Instantiate(brickPrefab, spawnPostion, Quaternion.identity, transform);
         //Update spawn place for new brick
-        newBrick.GetComponent<Brick>().spawnedState = transform.GetComponent<StageController>();
+        newBrick.GetComponent<Brick>().spawnedStage = transform.GetComponent<StageController>();
         //Add new brick in this state List<spawnedBrick>
         spawnedBricks.Add(newBrick);
     }
@@ -81,8 +78,9 @@ public class StageController : MonoBehaviour
                     {   
                         //get brick prefab
                         GameObject brickPrefab = brickPrefabs.Find(x => x.GetComponent<Brick>().brickColor == item.myColor);
-                        //spawn brick 
-                        GenarateBrick(brickPrefab, randomSpawnPostion[0].brickPosition);
+                        //spawn brick
+
+                        GenarateBrick(brickPrefab, randomSpawnPostion[0].transform.position);
                         //remove the spawn postion in list
                         randomSpawnPostion.RemoveAt(0);
                     }

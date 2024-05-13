@@ -271,12 +271,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698c7cddc41208e489c880d9b4178535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPrefabs: {fileID: 1804390910594370615, guid: 325c6d00c4e81a5458489e0c311d40c9, type: 3}
+  mapPrefabs: {fileID: 6947826893746934643, guid: 637e653d995204347935963d18a38ba6, type: 3}
   playerPrefab: {fileID: 5032786593662145851, guid: 5e07c9ad64a08964aa9712527ac9ec66, type: 3}
-  botPrefab: {fileID: 1351510531125032859, guid: b4fc33f6ec5cfd8459a07efef2c032c4, type: 3}
+  botPrefab: {fileID: 4282773014810518162, guid: b4fc33f6ec5cfd8459a07efef2c032c4, type: 3}
+  navMeshSurface: {fileID: 9083914285347230973, guid: d200d38193cbe1e4b8391ee43b05a66a, type: 3}
   startPositons: []
   currentGameState: 0
   playerColor: 0
+  currentObjects: []
+  currentNavMeshSurface: {fileID: 0}
 --- !u!4 &628110366
 Transform:
   m_ObjectHideFlags: 0

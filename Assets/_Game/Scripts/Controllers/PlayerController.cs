@@ -7,7 +7,6 @@ public class PlayerController : Character
 
     [Header("Attributes")]
     [SerializeField] private float speed;
-    private Rigidbody rb;
     private Vector3 currentRotation;
     private AnimationState currentAnimationState;
 
@@ -19,7 +18,6 @@ public class PlayerController : Character
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         currentRotation = Vector3.forward;
         currentAnimationState = AnimationState.idle;
     }
@@ -32,6 +30,11 @@ public class PlayerController : Character
         }
         MoveCharacter();
         CheckStepColor();
+
+        if(isFinished == true)
+        {
+            ChangeAnim(AnimationState.win);
+        }
     }
 
     private void MoveCharacter()

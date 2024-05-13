@@ -4,7 +4,7 @@ public class Brick : MonoBehaviour
 {
     [SerializeField] private ColorData colorData;
     [SerializeField] private MeshRenderer meshRenderer;
-    public StageController spawnedState;
+    public StageController spawnedStage;
     public ColorType brickColor;
 
     private void Awake()
@@ -16,6 +16,6 @@ public class Brick : MonoBehaviour
     private void OnDestroy()
     {
         //Remove this when have been destroyed
-        spawnedState.spawnedBricks.Remove(gameObject);
+        spawnedStage.spawnedBricks.Remove(gameObject);
     }
 }

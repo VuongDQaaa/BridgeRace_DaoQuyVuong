@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class StageCheck : MonoBehaviour
 {
-    //[SerializeField] private StateController stateController;
-    [SerializeField] private StageController stageController;
+    public StageController stageController;
 
     void OnTriggerEnter(Collider other)
     {

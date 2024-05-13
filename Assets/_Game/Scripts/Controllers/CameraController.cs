@@ -22,4 +22,9 @@ public class CameraController : Singleton<CameraController>
     {
         currentTarget = target.transform;
     }
+
+    public void DeleteTarget()
+    {
+        currentTarget = null;
+    }
 }
