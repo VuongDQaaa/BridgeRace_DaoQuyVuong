@@ -324,7 +324,7 @@ MonoBehaviour:
   navMeshSurface:
   - {fileID: 147518897378570149, guid: eeac2b1fb0531014f8a7f1247a022659, type: 3}
   - {fileID: 9083914285347230973, guid: d200d38193cbe1e4b8391ee43b05a66a, type: 3}
-  - {fileID: 4093720007834701842, guid: ee9c0a387b76ab144ac2d43572421072, type: 3}
+  - {fileID: 793202086966812770, guid: 713972e84ef9b564797ea8326d5644dd, type: 3}
   startPositons: []
   currentGameState: 0
   playerColor: 0
@@ -339,7 +339,7 @@ Transform:
   m_GameObject: {fileID: 628110364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.375, y: 10.990348, z: 29.102}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
   smoothSpeed: 0.125
-  offset: {x: 0, y: 10, z: -9}
+  offset: {x: 0, y: 11, z: -12}
 --- !u!1 &1181398725
 GameObject:
   m_ObjectHideFlags: 0

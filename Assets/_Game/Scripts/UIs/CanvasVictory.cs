@@ -10,8 +10,9 @@ public class CanvasVictory : UICanvas
 
     public void NextButton()
     {
-        UIManager.Instance.CloseAll();
+        Close(0);
         CameraController.Instance.DeleteTarget();
+        GameManager.Instance.currentGameState = GameManager.GameState.playing;
         GameManager.Instance.ClearAllObject();
         GameManager.Instance.StartGame();
     }

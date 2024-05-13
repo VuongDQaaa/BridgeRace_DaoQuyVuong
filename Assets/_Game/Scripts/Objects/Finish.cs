@@ -9,11 +9,14 @@ public class Finish : MonoBehaviour
         {
             int currentLevel = LevelManager.Instance.GetCurrentLevel() + 1;
             LevelManager.Instance.SaveCurrentLevel(currentLevel);
+
             GameManager.Instance.currentGameState = GameManager.GameState.win;
             StartCoroutine(Win());
         }
+
         if (other.CompareTag("Bot"))
         {
+            Debug.Log("Loose");
             GameManager.Instance.currentGameState = GameManager.GameState.loose;
             StartCoroutine(Loose());
         }

@@ -4,13 +4,13 @@ public class LevelManager : Singleton<LevelManager>
 {
     private string levelKey = "currentLevel";
 
-    void Start()
+    void Update()
     {
         int currentLevel = GetCurrentLevel();
-        if(currentLevel > 3)
+        if (currentLevel > 3)
         {
             SaveCurrentLevel(1);
-        }        
+        }
     }
 
     public void SaveCurrentLevel(int level)
@@ -22,7 +22,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public int GetCurrentLevel()
     {
-        if(PlayerPrefs.HasKey(levelKey))
+        if (PlayerPrefs.HasKey(levelKey))
         {
             return PlayerPrefs.GetInt(levelKey);
         }

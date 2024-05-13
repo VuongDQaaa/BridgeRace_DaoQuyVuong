@@ -23,10 +23,13 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        currentLevel = LevelManager.Instance.GetCurrentLevel();
-        Debug.Log("CurrentLevel" + currentLevel);
         currentGameState = GameState.start;
         UIManager.Instance.OpenUI<CanvasMainMenu>();
+    }
+
+    void Update()
+    {
+        currentLevel = LevelManager.Instance.GetCurrentLevel();
     }
 
     public void Win()
@@ -59,7 +62,7 @@ public class GameManager : Singleton<GameManager>
         GameObject currentMap = Instantiate(mapPrefabs[currentLevel - 1]);
         currentObjects.Add(currentMap);
         //Spawn NavMeshSurface
-        currentNavMeshSurface = Instantiate(navMeshSurface[currentLevel -1]);
+        currentNavMeshSurface = Instantiate(navMeshSurface[currentLevel - 1]);
         //Spawn character
         StartCoroutine(SpawnCharacter(currentMap));
     }
