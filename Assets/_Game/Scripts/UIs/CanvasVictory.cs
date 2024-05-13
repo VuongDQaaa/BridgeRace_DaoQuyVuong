@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CanvasVictory : UICanvas
 {
     public void MainMenuButton()
@@ -14,6 +10,9 @@ public class CanvasVictory : UICanvas
 
     public void NextButton()
     {
-
+        UIManager.Instance.CloseAll();
+        CameraController.Instance.DeleteTarget();
+        GameManager.Instance.ClearAllObject();
+        GameManager.Instance.StartGame();
     }
 }

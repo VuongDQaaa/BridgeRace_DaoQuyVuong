@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CanvasFail : UICanvas
 {
     public void MainMenuButton()
@@ -11,5 +7,10 @@ public class CanvasFail : UICanvas
     }
 
     public void RetryButton()
-    {}
+    {
+        Close(0);
+        CameraController.Instance.DeleteTarget();
+        GameManager.Instance.ClearAllObject();
+        GameManager.Instance.StartGame();
+    }
 }

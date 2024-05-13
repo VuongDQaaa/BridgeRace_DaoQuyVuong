@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2075339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075341}
+  - component: {fileID: 2075340}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2075340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583626ea173c0594597db4af8b6f36b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2075341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578201537
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,10 +315,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698c7cddc41208e489c880d9b4178535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPrefabs: {fileID: 6947826893746934643, guid: 637e653d995204347935963d18a38ba6, type: 3}
+  mapPrefabs:
+  - {fileID: 1804390910594370615, guid: 325c6d00c4e81a5458489e0c311d40c9, type: 3}
+  - {fileID: 6947826893746934643, guid: 637e653d995204347935963d18a38ba6, type: 3}
+  - {fileID: 8287960288042633059, guid: 113595d55a6f2094090d0db0a85b1a0d, type: 3}
   playerPrefab: {fileID: 5032786593662145851, guid: 5e07c9ad64a08964aa9712527ac9ec66, type: 3}
   botPrefab: {fileID: 4282773014810518162, guid: b4fc33f6ec5cfd8459a07efef2c032c4, type: 3}
-  navMeshSurface: {fileID: 9083914285347230973, guid: d200d38193cbe1e4b8391ee43b05a66a, type: 3}
+  navMeshSurface:
+  - {fileID: 147518897378570149, guid: eeac2b1fb0531014f8a7f1247a022659, type: 3}
+  - {fileID: 9083914285347230973, guid: d200d38193cbe1e4b8391ee43b05a66a, type: 3}
+  - {fileID: 4093720007834701842, guid: ee9c0a387b76ab144ac2d43572421072, type: 3}
   startPositons: []
   currentGameState: 0
   playerColor: 0
@@ -917,3 +967,4 @@ SceneRoots:
   - {fileID: 1915062248}
   - {fileID: 2112414040}
   - {fileID: 628110366}
+  - {fileID: 2075341}

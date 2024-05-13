@@ -7,10 +7,10 @@ public class GameManager : Singleton<GameManager>
 {
     public enum GameState { start, playing, win, loose }
     [Header("Required elements")]
-    [SerializeField] private GameObject mapPrefabs;
+    [SerializeField] private List<GameObject> mapPrefabs;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject botPrefab;
-    [SerializeField] private NavMeshSurface navMeshSurface;
+    [SerializeField] private List<NavMeshSurface> navMeshSurface;
     public List<Transform> startPositons;
 
     [Header("Atributes")]
@@ -19,9 +19,12 @@ public class GameManager : Singleton<GameManager>
     private ColorType[] color = { ColorType.Red, ColorType.Blue, ColorType.Green, ColorType.Pink, ColorType.Yellow };
     [SerializeField] private List<GameObject> currentObjects = new List<GameObject>();
     [SerializeField] private NavMeshSurface currentNavMeshSurface;
+    private int currentLevel;
     // Start is called before the first frame update
     void Start()
     {
+        currentLevel = LevelManager.Instance.GetCurrentLevel();
+        Debug.Log("CurrentLevel" + currentLevel);
         currentGameState = GameState.start;
         UIManager.Instance.OpenUI<CanvasMainMenu>();
     }
@@ -53,10 +56,10 @@ public class GameManager : Singleton<GameManager>
     private void SpawnGameElements()
     {
         //Spawn map
-        GameObject currentMap = Instantiate(mapPrefabs);
+        GameObject currentMap = Instantiate(mapPrefabs[currentLevel - 1]);
         currentObjects.Add(currentMap);
         //Spawn NavMeshSurface
-        currentNavMeshSurface = Instantiate(navMeshSurface);
+        currentNavMeshSurface = Instantiate(navMeshSurface[currentLevel -1]);
         //Spawn character
         StartCoroutine(SpawnCharacter(currentMap));
     }
